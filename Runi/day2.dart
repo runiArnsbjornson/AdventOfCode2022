@@ -1,7 +1,8 @@
 import 'dart:io';
 
 void main() {
-  final List<String> listInput = File('../input/day2_input.txt').readAsLinesSync();
+  final List<String> listInput =
+      File('../input/day2_input.txt').readAsLinesSync();
 
   int scorePart1 = 0;
   Map<String, int> rounds = {};
@@ -39,16 +40,12 @@ String convert(String players) {
 }
 
 int scoring(Map<String, int> rounds) {
-  int scorePart2 = 0;
-  scorePart2 = rounds.entries
+  return rounds.entries
       .map(
           (MapEntry<String, int> round) => roundResult(round.key) * round.value)
       .toList(growable: false)
       .reduce((value, element) => value + element);
-  return scorePart2;
 }
-
-
 
 int roundResult(String round) {
   int result = 0;
@@ -69,7 +66,7 @@ int roundResult(String round) {
 
 int shapeSelector(List<String> round) {
   if (round[1] == 'X') {
-    switch(round[0]) {
+    switch (round[0]) {
       case 'A':
         return 3;
       case 'B':
@@ -78,7 +75,7 @@ int shapeSelector(List<String> round) {
         return 2;
     }
   } else if (round[1] == 'Z') {
-    switch(round[0]) {
+    switch (round[0]) {
       case 'A':
         return 2;
       case 'B':
