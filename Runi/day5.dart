@@ -15,12 +15,21 @@ class Stack {
     crates.split('').forEach(addCrate);
   }
 
-  String removeCrate(int qty) {
+  String removeCrate9000(int qty) {
     final StringBuffer buffer = StringBuffer();
     for (int i = 0; i < qty; i++) {
       buffer.write(crates.last);
       crates.removeLast();
     }
+    return buffer.toString();
+  }
+
+  String removeCrate9001(int qty) {
+    final int start = crates.length - qty;
+    final int end = crates.length;
+    final StringBuffer buffer = StringBuffer();
+    buffer.write(crates.getRange(start, end).join());
+    crates.removeRange(start, end);
     return buffer.toString();
   }
 }
@@ -44,16 +53,23 @@ void main() {
   listInput.removeRange(0, stackInput.length + 1);
 
   final String resultPart1 =
-      executeProcess(parseStacks(stackInput), parseProcess(listInput));
-  print("the last crates of each stack form the 'word': $resultPart1");
+      executeProcess(parseStacks(stackInput), parseProcess(listInput), 9000);
+  print(
+      "For crane 9000, the top crates of each stack form the 'word': $resultPart1");
+
+  final String resultPart2 =
+      executeProcess(parseStacks(stackInput), parseProcess(listInput), 9001);
+  print(
+      "For crane 9001, the top crates of each stack form the 'word': $resultPart2");
 }
 
 List<Stack> parseStacks(List<String> stackInput) {
   final int nbStacks = int.parse(stackInput.last.split(' ').last);
   final List<Stack> allStacks =
       List<Stack>.generate(nbStacks, (int index) => Stack(cratesInput: ''));
+  final List<String> cratesInput = stackInput.reversed.skip(1).toList();
 
-  for (final String input in (stackInput..removeLast()).reversed) {
+  for (final String input in cratesInput) {
     for (int i = 0; i < (input.length + 1) / 4; i++) {
       final int index = i * 4 + 1;
       if (input[index] != ' ') {
@@ -72,12 +88,19 @@ List<Process> parseProcess(List<String> processInput) {
   return processes;
 }
 
-String executeProcess(List<Stack> stacks, List<Process> processes) {
+String executeProcess(List<Stack> stacks, List<Process> processes, int crane) {
   for (final Process p in processes) {
     final int qty = int.parse(p.process[0]);
     final int source = int.parse(p.process[1]) - 1;
     final int dest = int.parse(p.process[2]) - 1;
-    stacks[dest].addAll(stacks[source].removeCrate(qty));
+    switch (crane) {
+      case 9000:
+        stacks[dest].addAll(stacks[source].removeCrate9000(qty));
+        break;
+      case 9001:
+        stacks[dest].addAll(stacks[source].removeCrate9001(qty));
+        break;
+    }
   }
   final StringBuffer result = StringBuffer();
   for (final Stack s in stacks) {
