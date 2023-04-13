@@ -1,13 +1,13 @@
 import 'dart:io';
 
-main() {
-  List<String> listInput = File('day1_input.txt').readAsLinesSync();
+void main() {
+  final List<String> listInput = File('./input/day1_input.txt').readAsLinesSync();
 
   int weight = 0;
   int elf = 0;
-  var elfs = Map<int, int>();
+  final Map<int, int> elfs = <int, int>{};
 
-  for (final input in listInput) {
+  for (final String input in listInput) {
     if (input.isEmpty) {
       elfs[elf] = weight;
       elf++;
@@ -17,14 +17,14 @@ main() {
     }
   }
 
-  List<int> bigThree = elfs.values.toList(growable: false)
-    ..sort((a, b) => -a.compareTo(b));
-  elfs.removeWhere((key, value) => value < bigThree[2]);
+  final List<int> bigThree = elfs.values.toList(growable: false)
+    ..sort((int a,int  b) => -a.compareTo(b));
+  elfs.removeWhere((int key, int value) => value < bigThree[2]);
   introduceMe(elfs);
 }
 
-introduceMe(Map<int, int> elfs) {
-  elfs.forEach((key, value) {
+void introduceMe(Map<int, int> elfs) {
+  elfs.forEach((int key, int value) {
     print("Je suis l'elfe $key et j'ai $value calories");
   });
 }

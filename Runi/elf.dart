@@ -1,5 +1,5 @@
 class Elf {
-  Elf({required this.calories, this.name}):id = count {
+  Elf({required this.calories, this.name}) : id = count {
     _totalCalories += calories;
     count++;
   }
@@ -13,6 +13,6 @@ class Elf {
   static int get totalCalories => _totalCalories;
 
   void introduceMe() {
-    print("I am elf number $id, I carry $calories calories out of $_totalCalories");
+    print('I am elf $id, I carry $calories calories out of $_totalCalories');
   }
 }

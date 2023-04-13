@@ -1,11 +1,11 @@
 import 'dart:io';
 
 void main() {
-  List<String> listInput = File('day1_input.txt').readAsLinesSync();
+  final List<String> listInput = File('./input/day1_input.txt').readAsLinesSync();
 
   int weight = 0;
-  List<int> maxWeight = [];
-  for (final input in listInput) {
+  final List<int> maxWeight = [];
+  for (final String input in listInput) {
     if (input.isEmpty) {
       maxWeight.add(weight);
       weight = 0;
@@ -13,10 +13,9 @@ void main() {
       weight += int.parse(input);
     }
   }
-  maxWeight.sort((a, b) => -a.compareTo(b));
-  int result = 0;
-  for (var i = 0; i < 3; i++) {
-    result += maxWeight[i];
-  }
-  print('$result');
+  maxWeight
+    ..sort((int a, int b) => a.compareTo(b))
+    ..removeRange(0, maxWeight.length - 3)
+    ..reduce((int value, int element) => value + element);
+  print('total weight is ${maxWeight.reduce((int v, int e) => v + e)}');
 }

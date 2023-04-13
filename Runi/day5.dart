@@ -27,8 +27,8 @@ class Stack {
   String removeCrate9001(int qty) {
     final int start = crates.length - qty;
     final int end = crates.length;
-    final StringBuffer buffer = StringBuffer();
-    buffer.write(crates.getRange(start, end).join());
+    final StringBuffer buffer = StringBuffer()
+      ..write(crates.getRange(start, end).join());
     crates.removeRange(start, end);
     return buffer.toString();
   }
@@ -54,13 +54,11 @@ void main() {
 
   final String resultPart1 =
       executeProcess(parseStacks(stackInput), parseProcess(listInput), 9000);
-  print(
-      "For crane 9000, the top crates of each stack form the 'word': $resultPart1");
+  print('For crane 9000, the top crates of each stack are: $resultPart1');
 
   final String resultPart2 =
       executeProcess(parseStacks(stackInput), parseProcess(listInput), 9001);
-  print(
-      "For crane 9001, the top crates of each stack form the 'word': $resultPart2");
+  print('For crane 9001, the top crates of each stack are: $resultPart2');
 }
 
 List<Stack> parseStacks(List<String> stackInput) {

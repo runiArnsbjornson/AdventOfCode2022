@@ -2,31 +2,39 @@ import 'dart:io';
 
 void main() {
   final List<String> listInput =
-      File('../input/day3_input.txt').readAsLinesSync();
+      File('./input/day3_input.txt').readAsLinesSync();
 
   print('The sum of priorities is : ${solutionPart1(listInput)}');
   print('The sum of safety badges is : ${solutionPart2(listInput)}');
 }
 
 int solutionPart1(List<String> listInput) {
-  String solutionPart1 = '';
-  for (final input in listInput) {
-    int halfLength = input.length ~/ 2;
-    solutionPart1 += findCommonRunes(
-        input.substring(0, halfLength), input.substring(halfLength));
+  final StringBuffer buff = StringBuffer();
+  for (final String input in listInput) {
+    final int halfLength = input.length ~/ 2;
+    buff.write(
+      findCommonRunes(
+        input.substring(0, halfLength),
+        input.substring(halfLength),
+      ),
+    );
   }
-  return sumPriority(solutionPart1);
+  return sumPriority(buff.toString());
 }
 
 int solutionPart2(List<String> listInput) {
-  String solutionPart2 = '';
+  final StringBuffer buff = StringBuffer();
   for (int i = 2; i < listInput.length; i++) {
     if ((i + 1) % 3 == 0) {
-      solutionPart2 += findCommonRunes(
-          listInput[i], findCommonRunes(listInput[i - 1], listInput[i - 2]));
+      buff.write(
+        findCommonRunes(
+          listInput[i],
+          findCommonRunes(listInput[i - 1], listInput[i - 2]),
+        ),
+      );
     }
   }
-  return sumPriority(solutionPart2);
+  return sumPriority(buff.toString());
 }
 
 String findCommonRunes(String str1, String str2) {

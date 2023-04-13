@@ -5,9 +5,9 @@ void main() {
       File('../input/day2_input.txt').readAsLinesSync();
 
   int scorePart1 = 0;
-  Map<String, int> rounds = {};
-  for (final input in listInput) {
-    rounds.update(input, (value) => value + 1, ifAbsent: () => 1);
+  final Map<String, int> rounds = <String, int>{};
+  for (final String input in listInput) {
+    rounds.update(input, (int value) => value + 1, ifAbsent: () => 1);
     scorePart1 += compare(convert(input).split(' ')) +
         1 +
         int.parse(convert(input.substring(2, 3)));
@@ -17,8 +17,8 @@ void main() {
 }
 
 int compare(List<String> players) {
-  int p1 = int.parse(players[0]);
-  int p2 = int.parse(players[1]);
+  final int p1 = int.parse(players[0]);
+  final int p2 = int.parse(players[1]);
 
   if (p1 == p2) {
     return 3;
@@ -41,15 +41,14 @@ String convert(String players) {
 
 int scoring(Map<String, int> rounds) {
   return rounds.entries
-      .map(
-          (MapEntry<String, int> round) => roundResult(round.key) * round.value)
+      .map((MapEntry<String, int> rnd) => roundResult(rnd.key) * rnd.value)
       .toList(growable: false)
-      .reduce((value, element) => value + element);
+      .reduce((int value, int element) => value + element);
 }
 
 int roundResult(String round) {
   int result = 0;
-  List<String> input = round.split(' ');
+  final List<String> input = round.split(' ');
   switch (input[1]) {
     case 'X':
       result = 0 + shapeSelector(input);

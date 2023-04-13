@@ -1,12 +1,13 @@
-import 'elf.dart';
 import 'dart:io';
+import 'elf.dart';
 
 void main() {
-  List<String> listInput = File('../input/day1_input.txt').readAsLinesSync();
-  List<Elf> allElfs = [];
+  final List<String> listInput =
+      File('../input/day1_input.txt').readAsLinesSync();
+  final List<Elf> allElfs = <Elf>[];
   int weight = 0;
 
-  for (final input in listInput) {
+  for (final String input in listInput) {
     if (input.isEmpty) {
       allElfs.add(Elf(calories: weight));
       weight = 0;
@@ -22,5 +23,5 @@ void main() {
 }
 
 void sortElfs(List<Elf> elves) {
-  elves.sort((a, b) => -a.calories.compareTo(b.calories));
+  elves.sort((Elf a, Elf b) => -a.calories.compareTo(b.calories));
 }
