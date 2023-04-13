@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class Elf {
-  Elf({required this.input}) {
+  Elf({required String input}) {
     for (int i = int.parse(input.split('-')[0]);
         i <= int.parse(input.split('-')[1]);
         i++) {
@@ -10,7 +10,6 @@ class Elf {
   }
 
   Set<int> sections = <int>{};
-  final String input;
 }
 
 class Pair {
